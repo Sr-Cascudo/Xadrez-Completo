@@ -14,6 +14,7 @@
 - corPreta : boolean
 - nuncaMovimentado : boolean
 - urlImagem : String
+- antigaPosicao : Posicao
 --
 /+ mover(posicao : Posicao) : boolean/
 + isCorPreta() : boolean
@@ -28,14 +29,13 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>144</x>
+      <x>198</x>
       <y>81</y>
-      <w>162</w>
-      <h>45</h>
+      <w>108</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>Rainha
---
-- antigaPosicao : Posicao</panel_attributes>
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
