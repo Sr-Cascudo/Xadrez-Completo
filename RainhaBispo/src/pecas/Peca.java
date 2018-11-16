@@ -1,6 +1,6 @@
 package pecas;
 
-import tabuleiroHipotetico.Tabuleiro;
+import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
 

@@ -2,6 +2,9 @@ package pecas;
 
 public class Posicao {
 
+	//CLASSE RESPONSAVEL UNICAMENTE PARA ARMAZENAR AS POSICOES LINHA E COLUNA DAS 
+	//PECAS NA MATRIZ TABULEIRO
+	
 	private int linha;
 	private int coluna;
 

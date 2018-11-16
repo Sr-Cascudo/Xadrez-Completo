@@ -1,4 +1,4 @@
-package tabuleiroHipotetico;
+package tabuleiro;
 
 import pecas.Peca;
 import pecas.Posicao;
@@ -6,7 +6,6 @@ import pecas.Posicao;
 public class Tabuleiro {
 	private Peca matrizPeca[][] = new Peca[8][8];
 
-	
 	public Peca[][] getMatrizPeca() {
 		return matrizPeca;
 	}
