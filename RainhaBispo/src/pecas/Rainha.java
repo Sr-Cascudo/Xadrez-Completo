@@ -7,12 +7,7 @@ public class Rainha extends Peca {
 		Peca restricoesRainha[][] = new Peca[8][8];
 		Rainha rainha = new Rainha();
 		restricoesRainha = tabuleiro.getMatrizPeca();
-
-		if (isNuncaMovimentado()) {
-			// antigaPosicao = (ATRIBUIR POSICAO INICIAL DA RAINHA)
-		} else {
-			antigaPosicao = posicao;
-		}
+		// antigaPosicao = (ATRIBUIR POSICAO INICIAL DA RAINHA)
 
 		if (restricoesRainha[posicao.getLinha()][posicao.getColuna()] instanceof Peca) {
 			if (rainha.isCorPreta() != restricoesRainha[posicao.getLinha()][posicao.getColuna()].isCorPreta()) {
@@ -92,6 +87,7 @@ public class Rainha extends Peca {
 		if ((antigaPosicao.getLinha() + antigaPosicao.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
+			antigaPosicao = posicao;
 			return true;
 			// MOVE A RAINHA NA DIAGONAL PRINCIPAL
 		}
@@ -99,6 +95,7 @@ public class Rainha extends Peca {
 		if ((antigaPosicao.getColuna() - antigaPosicao.getLinha()) == (posicao.getColuna() - posicao.getLinha())) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
+			antigaPosicao = posicao;
 			return true;
 			// MOVE A RAINHA NA DIAGONAL SECUNDARIA
 		}
@@ -106,6 +103,7 @@ public class Rainha extends Peca {
 		if (antigaPosicao.getColuna() == posicao.getColuna()) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
+			antigaPosicao = posicao;
 			return true;
 			// MOVE RAINHA NA HORIZONTAL
 		}
@@ -113,6 +111,7 @@ public class Rainha extends Peca {
 		if (antigaPosicao.getLinha() == posicao.getLinha()) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
+			antigaPosicao = posicao;
 			return true;
 			// MOVE RAINHA NA VERTICAL
 		}

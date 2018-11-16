@@ -7,12 +7,8 @@ public class Bispo extends Peca {
 		Peca restricoesBispo[][] = new Peca[8][8];
 		Bispo Bispo = new Bispo();
 		restricoesBispo = tabuleiro.getMatrizPeca();
-
-		if (isNuncaMovimentado()) {
+		
 			// antigaPosicao = (ATRIBUIR POSICAO INICIAL DO BISPO)
-		} else {
-			antigaPosicao = posicao;
-		}
 
 		if (restricoesBispo[posicao.getLinha()][posicao.getColuna()] instanceof Peca) {
 			if (Bispo.isCorPreta() != restricoesBispo[posicao.getLinha()][posicao.getColuna()].isCorPreta()) {
@@ -59,6 +55,7 @@ public class Bispo extends Peca {
 		if ((antigaPosicao.getLinha() + antigaPosicao.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
 			restricoesBispo[posicao.getLinha()][posicao.getColuna()] = Bispo;
 			tabuleiro.setMatrizPeca(restricoesBispo);// ATUALIZA A POSICAO DO BISPO NO TABULEIRO
+			antigaPosicao = posicao;
 			return true;
 			// MOVE O BISPO NA DIAGONAL PRINCIPAL
 		}
@@ -66,6 +63,7 @@ public class Bispo extends Peca {
 		if ((antigaPosicao.getColuna() - antigaPosicao.getLinha()) == (posicao.getColuna() - posicao.getLinha())) {
 			restricoesBispo[posicao.getLinha()][posicao.getColuna()] = Bispo;
 			tabuleiro.setMatrizPeca(restricoesBispo);// ATUALIZA A POSICAO DO BISPO NO TABULEIRO
+			antigaPosicao = posicao;
 			return true;
 			// MOVE O BISPO NA DIAGONAL SECUNDARIA
 		}
