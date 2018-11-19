@@ -1,5 +1,9 @@
 package pecas;
-
+/**
+ * AUTOR : JOHN HELDER CARDOSO ALVES
+ * DATA : 15/11/2018
+ * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
+ * */
 public class Torre extends Peca {
 
 	@Override
