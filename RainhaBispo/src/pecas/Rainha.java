@@ -11,8 +11,31 @@ public class Rainha extends Peca {
 		Peca restricoesRainha[][] = new Peca[8][8];
 		Rainha rainha = new Rainha();
 		restricoesRainha = tabuleiro.getMatrizPeca();
-		// antigaPosicao = (ATRIBUIR POSICAO INICIAL DA RAINHA)
-
+		Posicao posicaoAtual = null;
+		
+		//OS BLOCOS "FOR" A SEGUIR SAO RESPONSAVEIS POR DETERMINAR A POSICAO ATUAL
+		//DA RAINHA COM BASE PARA ONDE ELA DESEJA SE MOVER.
+		//ESSA ACAO É NECESSARIA POIS É PRECISO DA POSICAO ATUAL DA PECA PARA EXECUTAR 
+		//AS COMPARACOES AO LONGO DO CODIGO DA PECA
+		
+		//BLOCO EM DESTAQUE EM FUNCAO DA IMPORTANCIA:
+		
+//==============================================================================================
+		for (int linha = 0; linha < restricoesRainha.length; linha++) {
+			for (int coluna = 0; coluna < restricoesRainha.length; coluna++) {
+				if (posicao.getLinha() + posicao.getColuna() == linha + coluna
+						|| posicao.getColuna() - posicao.getLinha() == coluna - linha
+						|| posicao.getColuna() == coluna
+						|| posicao.getLinha() == linha) {
+					if (restricoesRainha[linha][coluna] instanceof Rainha) {
+						posicaoAtual.setLinha(linha);
+						posicaoAtual.setColuna(coluna);
+					}
+				}
+			}
+		}
+//==============================================================================================		
+		
 		if (restricoesRainha[posicao.getLinha()][posicao.getColuna()] instanceof Peca) {
 			if (rainha.isCorPreta() != restricoesRainha[posicao.getLinha()][posicao.getColuna()].isCorPreta()) {
 				// SE HOUVER UMA PECA DE COR DIFERENTE DA RAINHA O CODIGO CONTINUA A EXECUCAO
@@ -28,10 +51,11 @@ public class Rainha extends Peca {
 		for (int linha = 0; linha < restricoesRainha.length; linha++) { 	   
 			for (int coluna = 0; coluna < restricoesRainha.length; coluna++) { 
 				// VARREDURA DE TODAS AS POSICOES DA MATRIZ
-
+				
 				if (posicao.getLinha() + posicao.getColuna() == linha + coluna
-						|| antigaPosicao.getColuna() - antigaPosicao.getLinha() == coluna - linha) {
-					// SELECIONA AS DIAGONAIS
+					//SELECIONA DIAGONAL PRINCIPAL
+						|| posicaoAtual.getColuna() - posicaoAtual.getLinha() == coluna - linha) {
+						//SELECIONA AS DIAGONAL SECUNDARIA
 
 					if (posicao.getLinha() < linha) {
 						// VERIFICA SE A RAINHA QUER SE MOVER NAS DIAGONAIS INFERIOR
@@ -53,7 +77,7 @@ public class Rainha extends Peca {
 					}
 				}
 
-				if (posicao.getColuna() == antigaPosicao.getColuna()) {
+				if (posicao.getColuna() == posicaoAtual.getColuna()) {
 				//SELECIONA COLUNA DA RAINHA
 					
 					// HORIZONTAIS
@@ -75,7 +99,7 @@ public class Rainha extends Peca {
 					
 				}
 
-				if (posicao.getLinha() == antigaPosicao.getLinha()) {
+				if (posicao.getLinha() == posicaoAtual.getLinha()) {
 				//SELECIONA LINHA DA RAINHA
 					
 					// VERTICAIS
@@ -97,35 +121,35 @@ public class Rainha extends Peca {
 				}
 			}
 		}
-
-		if ((antigaPosicao.getLinha() + antigaPosicao.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
+		
+		if ((posicaoAtual.getLinha() + posicaoAtual.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
-			antigaPosicao = posicao;
+			posicaoAtual = posicao;
 			return true;
 			// MOVE A RAINHA NA DIAGONAL PRINCIPAL
 		}
 
-		if ((antigaPosicao.getColuna() - antigaPosicao.getLinha()) == (posicao.getColuna() - posicao.getLinha())) {
+		if ((posicaoAtual.getColuna() - posicaoAtual.getLinha()) == (posicao.getColuna() - posicao.getLinha())) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
-			antigaPosicao = posicao;
+			posicaoAtual = posicao;
 			return true;
 			// MOVE A RAINHA NA DIAGONAL SECUNDARIA
 		}
 
-		if (antigaPosicao.getColuna() == posicao.getColuna()) {
+		if (posicaoAtual.getColuna() == posicao.getColuna()) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
-			antigaPosicao = posicao;
+			posicaoAtual = posicao;
 			return true;
 			// MOVE RAINHA NA HORIZONTAL
 		}
 
-		if (antigaPosicao.getLinha() == posicao.getLinha()) {
+		if (posicaoAtual.getLinha() == posicao.getLinha()) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
 			tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
-			antigaPosicao = posicao;
+			posicaoAtual = posicao;
 			return true;
 			// MOVE RAINHA NA VERTICAL
 		}

@@ -11,7 +11,6 @@ public abstract class Peca {
 	private boolean corPreta;
 	private boolean nuncaMovimentado;
 	private String urlImagem;
-	protected Posicao antigaPosicao;
 	Tabuleiro tabuleiro = new Tabuleiro();
 	
 	public boolean isCorPreta() {
