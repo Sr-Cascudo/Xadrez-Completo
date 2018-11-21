@@ -1,7 +1,7 @@
 package pecas;
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
- * DATA : 15/11/2018
+ * DATA : 21/11/2018
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
  * */
 public class Rainha extends Peca {
