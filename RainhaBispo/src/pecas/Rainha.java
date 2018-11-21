@@ -11,7 +11,8 @@ public class Rainha extends Peca {
 		Peca restricoesRainha[][] = new Peca[8][8];
 		Rainha rainha = new Rainha();
 		restricoesRainha = tabuleiro.getMatrizPeca();
-		Posicao posicaoAtual = null;
+		restricoesRainha[0][3] = rainha;
+		Posicao posicaoAtual = new Posicao();
 		
 		//OS BLOCOS "FOR" A SEGUIR SAO RESPONSAVEIS POR DETERMINAR A POSICAO ATUAL
 		//DA RAINHA COM BASE PARA ONDE ELA DESEJA SE MOVER.
@@ -52,70 +53,76 @@ public class Rainha extends Peca {
 			for (int coluna = 0; coluna < restricoesRainha.length; coluna++) { 
 				// VARREDURA DE TODAS AS POSICOES DA MATRIZ
 				
-				if (posicao.getLinha() + posicao.getColuna() == linha + coluna
+				if ((posicao.getLinha() + posicao.getColuna() == linha + coluna
+						&& posicaoAtual.getLinha() + posicaoAtual.getColuna() == linha + coluna)
 					//SELECIONA DIAGONAL PRINCIPAL
-						|| posicaoAtual.getColuna() - posicaoAtual.getLinha() == coluna - linha) {
+						|| (posicao.getColuna() - posicao.getLinha() == coluna - linha
+						&& posicaoAtual.getColuna() - posicaoAtual.getLinha() == coluna - linha)) {
 						//SELECIONA AS DIAGONAL SECUNDARIA
 
-					if (posicao.getLinha() < linha) {
-						// VERIFICA SE A RAINHA QUER SE MOVER NAS DIAGONAIS INFERIOR
-
-						if (restricoesRainha[linha][coluna] instanceof Peca) {
-							return false;									  
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
-							// NOVA POSICAO PELAS DIAGONAIS INFERIOR
-						}
-					}
-					if (posicao.getLinha() > linha) {
-						// VERIFICA SE A RAINHA QUER SE MOVER NA DIAGONAIS SUPERIOR
+					if (!(posicaoAtual.getLinha() == linha && posicaoAtual.getColuna() == coluna)) {
+						//EVITA QUE VERIFIQUE SE A ESTANCIA DE PECA NA POSICAO DA PROPRIA PECA
 						
-						if (restricoesRainha[linha][coluna] instanceof Peca) {																				
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
-							// NOVA POSICAO PELAS DIAGONAIS SUPERIOR		
-						}
-					}
-				}
+						if (posicao.getLinha() < posicaoAtual.getLinha()) {
+							// VERIFICA SE A RAINHA QUER SE MOVER NAS DIAGONAIS INFERIOR
 
-				if (posicao.getColuna() == posicaoAtual.getColuna()) {
-				//SELECIONA COLUNA DA RAINHA
-					
-					// HORIZONTAIS
-					if (posicao.getColuna() < coluna) {
-						if (restricoesRainha[linha][coluna] instanceof Peca) {
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
-							// POSICAO PELA HORIZONTAL A ESQUEDA
-
+							if (restricoesRainha[linha][coluna] instanceof Peca) {
+								return false;									  
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
+								// NOVA POSICAO PELAS DIAGONAIS INFERIOR
+							}
 						}
-					}
-					if (posicao.getColuna() > coluna) {
-						if (restricoesRainha[linha][coluna] instanceof Peca) {
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
-							// POSICAO PELA HORIZONTAL A DIREITA
-						}
-					}
-					
-				}
-
-				if (posicao.getLinha() == posicaoAtual.getLinha()) {
-				//SELECIONA LINHA DA RAINHA
-					
-					// VERTICAIS
-					if (posicao.getLinha() < linha) {
-						if (restricoesRainha[linha][coluna] instanceof Peca) {
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
-							// POSICAO PELA VERTICAL INFERIOR
+						if (posicao.getLinha() > posicaoAtual.getLinha()) {
+							// VERIFICA SE A RAINHA QUER SE MOVER NA DIAGONAIS SUPERIOR
+							
+							if (restricoesRainha[linha][coluna] instanceof Peca) {																				
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
+								// NOVA POSICAO PELAS DIAGONAIS SUPERIOR		
+							}
 						}
 					}
 
-					if (posicao.getLinha() > linha) {
-						if (restricoesRainha[linha][coluna] instanceof Peca) {
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
-							// POSICAO PELA VERTICAL SUPERIOR
+					if (posicao.getColuna() == posicaoAtual.getColuna() && posicaoAtual.getColuna() == coluna) {
+					//SELECIONA COLUNA DA RAINHA
+						
+						// HORIZONTAIS
+						if (posicao.getColuna() < posicaoAtual.getColuna()) {
+							if (restricoesRainha[linha][coluna] instanceof Peca) {
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
+								// POSICAO PELA HORIZONTAL A ESQUEDA
+
+							}
+						}
+						if (posicao.getColuna() > posicaoAtual.getColuna()) {
+							if (restricoesRainha[linha][coluna] instanceof Peca) {
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
+								// POSICAO PELA HORIZONTAL A DIREITA
+							}
+						}
+						
+					}
+
+					if (posicao.getLinha() == posicaoAtual.getLinha() && posicaoAtual.getLinha() == linha) {
+					//SELECIONA LINHA DA RAINHA
+						
+						// VERTICAIS
+						if (posicao.getLinha() < posicaoAtual.getLinha()) {
+							if (restricoesRainha[linha][coluna] instanceof Peca) {
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
+								// POSICAO PELA VERTICAL INFERIOR
+							}
+						}
+
+						if (posicao.getLinha() > posicaoAtual.getLinha()) {
+							if (restricoesRainha[linha][coluna] instanceof Peca) {
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A NOVA
+								// POSICAO PELA VERTICAL SUPERIOR
+							}
 						}
 					}	
 				}
