@@ -1,6 +1,6 @@
 package pecas;
 
-import Tabuleiro.Tabuleiro;
+import tabuleiro.Tabuleiro;
 
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES 
