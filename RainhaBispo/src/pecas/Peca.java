@@ -1,41 +1,54 @@
 package pecas;
-/**
- * AUTOR : JOHN HELDER CARDOSO ALVES
- * DATA : 15/11/2018
- * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
- * */
-import tabuleiro.Tabuleiro;
+import Tabuleiro.Tabuleiro;
 
 public abstract class Peca {
 
+	private Posicao posicao;
 	private boolean corPreta;
 	private boolean nuncaMovimentado;
 	private String urlImagem;
-	Tabuleiro tabuleiro = new Tabuleiro();
 	
-	public boolean isCorPreta() {
-		return corPreta;
+	public Peca() {
+		
 	}
 
-	public void setCorPreta(boolean corPreta) {
+	public Peca(Posicao posicao, boolean corPreta) {
+		super();
+		this.posicao = posicao;
 		this.corPreta = corPreta;
+		this.nuncaMovimentado = true;
+		this.urlImagem = null;
 	}
 
-	public boolean isNuncaMovimentado() {
-		return nuncaMovimentado;
+	public abstract boolean mover(Posicao posicao);
+
+	public boolean isCorPreta() {
+		return true;
 	}
 
-	public void setNuncaMovimentado(boolean nuncaMovimentado) {
-		this.nuncaMovimentado = nuncaMovimentado;
+	public Posicao getPosicao() {
+		
+		return this.posicao;
+	}
+
+	public void setPosicao(Posicao posicao) {
+		this.posicao = posicao;
+	}
+
+	public void setCorPreta(boolean valor) {
+		this.corPreta = valor;
+	}
+
+	public boolean isNuncaMovimentada() {
+		return true;
+	}
+
+	public void setNuncaMovimentado(boolean valor) {
+		this.nuncaMovimentado = valor;
 	}
 
 	public String getUrlImagem() {
 		return urlImagem;
-	}
-
-	public boolean mover(Posicao posicao) {
-
-		return true;
 	}
 
 }

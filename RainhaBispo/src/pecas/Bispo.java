@@ -1,18 +1,42 @@
 package pecas;
+
+import Tabuleiro.Tabuleiro;
+
 /**
- * AUTOR : JOHN HELDER CARDOSO ALVES
- * DATA : 15/11/2018
+ * AUTOR : JOHN HELDER CARDOSO ALVES 
+ * DATA : 15/11/2018 
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
- * */
+ */
 public class Bispo extends Peca {
 
 	@Override
 	public boolean mover(Posicao posicao) {
 		Peca restricoesBispo[][] = new Peca[8][8];
 		Bispo Bispo = new Bispo();
-		restricoesBispo = tabuleiro.getMatrizPeca();
-		
-			// antigaPosicao = (ATRIBUIR POSICAO INICIAL DO BISPO)
+		restricoesBispo = Tabuleiro.getMatrizPeca();
+		Posicao posicaoAtual = new Posicao();
+
+		// OS BLOCOS "FOR" A SEGUIR SAO RESPONSAVEIS POR DETERMINAR A POSICAO ATUAL
+		// DA RAINHA COM BASE PARA ONDE ELA DESEJA SE MOVER.
+		// ESSA ACAO É NECESSARIA POIS É PRECISO DA POSICAO ATUAL DA PECA PARA EXECUTAR
+		// AS COMPARACOES AO LONGO DO CODIGO DA PECA;
+
+		// BLOCO EM DESTAQUE EM FUNCAO DA IMPORTANCIA:
+
+//==============================================================================================
+		for (int linha = 0; linha < restricoesBispo.length; linha++) {
+			for (int coluna = 0; coluna < restricoesBispo.length; coluna++) {
+				if (posicao.getLinha() + posicao.getColuna() == linha + coluna
+						|| posicao.getColuna() - posicao.getLinha() == coluna - linha || posicao.getColuna() == coluna
+						|| posicao.getLinha() == linha) {
+					if (restricoesBispo[linha][coluna] instanceof Rainha) {
+						posicaoAtual.setLinha(linha);
+						posicaoAtual.setColuna(coluna);
+					}
+				}
+			}
+		}
+//==============================================================================================	
 
 		if (restricoesBispo[posicao.getLinha()][posicao.getColuna()] instanceof Peca) {
 			if (Bispo.isCorPreta() != restricoesBispo[posicao.getLinha()][posicao.getColuna()].isCorPreta()) {
@@ -25,49 +49,53 @@ public class Bispo extends Peca {
 			}
 		}
 
-		for (int linha = 0; linha < restricoesBispo.length; linha++) { 
-			for (int coluna = 0; coluna < restricoesBispo.length; coluna++) { 
+		for (int linha = 0; linha < restricoesBispo.length; linha++) {
+			for (int coluna = 0; coluna < restricoesBispo.length; coluna++) {
 				// VARREDURA DE TODAS AS POSICOES DA MATRIZ
 
-				if (posicao.getLinha() + posicao.getColuna() == linha + coluna
-						|| antigaPosicao.getColuna() - antigaPosicao.getLinha() == coluna - linha) {
-					// SELECIONA AS DIAGONAIS
+				if ((posicao.getLinha() + posicao.getColuna() == linha + coluna
+						&& posicaoAtual.getLinha() + posicaoAtual.getColuna() == linha + coluna)
+						// SELECIONA DIAGONAL PRINCIPAL
+						|| (posicao.getColuna() - posicao.getLinha() == coluna - linha
+								&& posicaoAtual.getColuna() - posicaoAtual.getLinha() == coluna - linha)) {
+					// SELECIONA AS DIAGONAL SECUNDARIA
+					if (!(posicaoAtual.getLinha() == linha && posicaoAtual.getColuna() == coluna)) {
 
-					if (posicao.getLinha() < linha) {
-						// VERIFICA SE A RAINHA QUER SE MOVER NAS DIAGONAIS INFERIOR
+						if (posicao.getLinha() < linha) {
+							// VERIFICA SE A RAINHA QUER SE MOVER NAS DIAGONAIS INFERIOR
 
-						if (restricoesBispo[linha][coluna] instanceof Peca) {
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
-							// NOVA POSICAO PELAS DIAGONAIS INFERIOR
+							if (restricoesBispo[linha][coluna] instanceof Peca) {
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
+								// NOVA POSICAO PELAS DIAGONAIS INFERIOR
+							}
+						}
+						if (posicao.getLinha() > linha) {
+							// VERIFICA SE A RAINHA QUER SE MOVER NA DIAGONAIS SUPERIOR
+
+							if (restricoesBispo[linha][coluna] instanceof Peca) {
+								return false;
+								// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
+								// NOVA POSICAO PELAS DIAGONAIS SUPERIOR
+							}
 						}
 					}
-					if (posicao.getLinha() > linha) {
-						// VERIFICA SE A RAINHA QUER SE MOVER NA DIAGONAIS SUPERIOR
 
-						if (restricoesBispo[linha][coluna] instanceof Peca) {
-							return false;
-							// VERIFICA SE UMA PECA NO CAMINHO ATÉ A
-							// NOVA POSICAO PELAS DIAGONAIS SUPERIOR
-						}
-					}
-				}
-
-			}
+				}			}
 		}
 
-		if ((antigaPosicao.getLinha() + antigaPosicao.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
+		if ((posicaoAtual.getLinha() + posicaoAtual.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
 			restricoesBispo[posicao.getLinha()][posicao.getColuna()] = Bispo;
-			tabuleiro.setMatrizPeca(restricoesBispo);// ATUALIZA A POSICAO DO BISPO NO TABULEIRO
-			antigaPosicao = posicao;
+			Tabuleiro.setMatrizPeca(restricoesBispo);// ATUALIZA A POSICAO DO BISPO NO TABULEIRO
+			posicaoAtual = posicao;
 			return true;
 			// MOVE O BISPO NA DIAGONAL PRINCIPAL
 		}
 
-		if ((antigaPosicao.getColuna() - antigaPosicao.getLinha()) == (posicao.getColuna() - posicao.getLinha())) {
+		if ((posicaoAtual.getColuna() - posicaoAtual.getLinha()) == (posicao.getColuna() - posicao.getLinha())) {
 			restricoesBispo[posicao.getLinha()][posicao.getColuna()] = Bispo;
-			tabuleiro.setMatrizPeca(restricoesBispo);// ATUALIZA A POSICAO DO BISPO NO TABULEIRO
-			antigaPosicao = posicao;
+			Tabuleiro.setMatrizPeca(restricoesBispo);// ATUALIZA A POSICAO DO BISPO NO TABULEIRO
+			posicaoAtual = posicao;
 			return true;
 			// MOVE O BISPO NA DIAGONAL SECUNDARIA
 		}

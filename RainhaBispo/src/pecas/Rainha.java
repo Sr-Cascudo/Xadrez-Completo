@@ -1,7 +1,6 @@
 package pecas;
 
-import model.Dama;
-import tabuleiro.Tabuleiro;
+import Tabuleiro.Tabuleiro;
 
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
@@ -13,10 +12,10 @@ public class Rainha extends Peca {
 	@Override
 	public boolean mover(Posicao posicao) {
 		Peca restricoesRainha[][] = new Peca[8][8];
-		Dama rainha = new Dama();
+		Rainha rainha = new Rainha();
 		restricoesRainha = Tabuleiro.getMatrizPeca();
-		//restricoesRainha[0][0] = rainha;
-		Posicao posicaoAtual = new Posicao(0 , 0);
+		restricoesRainha[0][3] = rainha;
+		Posicao posicaoAtual = new Posicao();
 		
 		//OS BLOCOS "FOR" A SEGUIR SAO RESPONSAVEIS POR DETERMINAR A POSICAO ATUAL
 		//DA RAINHA COM BASE PARA ONDE ELA DESEJA SE MOVER.
@@ -32,7 +31,7 @@ public class Rainha extends Peca {
 						|| posicao.getColuna() - posicao.getLinha() == coluna - linha
 						|| posicao.getColuna() == coluna
 						|| posicao.getLinha() == linha) {
-					if (restricoesRainha[linha][coluna] instanceof Dama) {
+					if (restricoesRainha[linha][coluna] instanceof Rainha) {
 						posicaoAtual.setLinha(linha);
 						posicaoAtual.setColuna(coluna);
 					}
@@ -64,8 +63,10 @@ public class Rainha extends Peca {
 						&& posicaoAtual.getColuna() - posicaoAtual.getLinha() == coluna - linha)) {
 						//SELECIONA AS DIAGONAL SECUNDARIA
 
+					//====================================================================================
 					if (!(posicaoAtual.getLinha() == linha && posicaoAtual.getColuna() == coluna)) {
 						//EVITA QUE VERIFIQUE SE A ESTANCIA DE PECA NA POSICAO DA PROPRIA PECA
+					//====================================================================================
 						
 						if (posicao.getLinha() < posicaoAtual.getLinha()) {
 							// VERIFICA SE A RAINHA QUER SE MOVER NAS DIAGONAIS INFERIOR
@@ -135,7 +136,7 @@ public class Rainha extends Peca {
 		
 		if ((posicaoAtual.getLinha() + posicaoAtual.getColuna()) == (posicao.getLinha() + posicao.getColuna())) {
 			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
-			restricoesRainha[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null; 
+			restricoesRainha[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
 			Tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
 			return true;
 			// MOVE A RAINHA NA DIAGONAL PRINCIPAL

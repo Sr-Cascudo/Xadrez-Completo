@@ -1,17 +1,43 @@
 package pecas;
+
+import Tabuleiro.Tabuleiro;
+
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
  * DATA : 15/11/2018
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
  * */
 public class Cavalo extends Peca {
-
 	@Override
 	public boolean mover(Posicao posicao) {		
 		Peca restricoesCavalo[][] = new Peca[8][8];
 		Cavalo cavalo = new Cavalo();
-		restricoesCavalo = tabuleiro.getMatrizPeca();
-		// antigaPosicao = (POSICAO INICIAL DO CAVALO)
+		restricoesCavalo = Tabuleiro.getMatrizPeca();
+		Posicao posicaoAtual = new Posicao();
+		
+		//OS BLOCOS "FOR" A SEGUIR SAO RESPONSAVEIS POR DETERMINAR A POSICAO ATUAL
+		//DA RAINHA COM BASE PARA ONDE ELA DESEJA SE MOVER.
+		//ESSA ACAO É NECESSARIA POIS É PRECISO DA POSICAO ATUAL DA PECA PARA EXECUTAR 
+		//AS COMPARACOES AO LONGO DO CODIGO DA PECA;
+		
+		//BLOCO EM DESTAQUE EM FUNCAO DA IMPORTANCIA:
+		
+//==============================================================================================
+		
+		for (int linha = 0; linha < restricoesCavalo.length; linha++) {
+			for (int coluna = 0; coluna < restricoesCavalo.length; coluna++) {
+				if ((posicao.getColuna() == coluna + 1
+					|| posicao.getColuna() == coluna - 1)
+						&& (posicao.getLinha() == linha + 2 
+							||posicao.getLinha() == linha - 2)) {
+					if (restricoesCavalo[linha][coluna] instanceof Cavalo) {
+						posicaoAtual.setLinha(linha);
+						posicaoAtual.setColuna(coluna);
+					}
+				}
+			}
+		}
+//==============================================================================================		
 		
 		if (restricoesCavalo[posicao.getLinha()][posicao.getColuna()] instanceof Peca) {
 			if (cavalo.isCorPreta() != restricoesCavalo[posicao.getLinha()][posicao.getColuna()].isCorPreta()) {
@@ -25,23 +51,45 @@ public class Cavalo extends Peca {
 			}
 		}
 		
-		if (antigaPosicao.getLinha() < posicao.getLinha()
+		if (posicaoAtual.getLinha() < posicao.getLinha()
 				// CAVALO SE MOVENTO PARA A PARTE INFERIOR DA MATRIZ
-				|| antigaPosicao.getLinha() > posicao.getLinha()) {
+				|| posicaoAtual.getLinha() > posicao.getLinha()) {
 				// CAVALO SE MOVENDO PARA A PARTE SUPERIOR DA MATRIZ
 
-			if (posicao.getLinha() - antigaPosicao.getLinha() == 2
+			if (posicao.getLinha() - posicaoAtual.getLinha() == 2
 				//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO VERTICAL INFERIOR
-					|| antigaPosicao.getLinha() - posicao.getLinha() == 2) {
+					|| posicaoAtual.getLinha() - posicao.getLinha() == 2) {
 					//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO VERTICAL SUPERIOR
 				
-				if (posicao.getColuna() == antigaPosicao.getColuna() - 1
+				if (posicao.getColuna() == posicaoAtual.getColuna() - 1
+						//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO VERTICAL A ESQUERDA
+						|| posicao.getColuna() == posicaoAtual.getColuna() + 1 ) {
+						//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO VERTICAL A DIREITA
+					restricoesCavalo[posicao.getLinha()][posicao.getColuna()] = cavalo;
+					Tabuleiro.setMatrizPeca(restricoesCavalo);
+					restricoesCavalo[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
+					return true;
+				}
+			}
+		}
+		
+		if (posicaoAtual.getColuna() < posicao.getColuna()
+				// CAVALO SE MOVENTO PARA A DIREITA DA MATRIZ
+				|| posicaoAtual.getColuna() > posicao.getColuna()) {
+				// CAVALO SE MOVENDO PARA A ESQUERDA DA MATRIZ
+
+			if (posicao.getColuna() - posicaoAtual.getColuna() == 2
+				//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO VERTICAL INFERIOR
+					|| posicaoAtual.getColuna() - posicao.getColuna() == 2) {
+					//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO VERTICAL SUPERIOR
+				
+				if (posicao.getLinha() == posicaoAtual.getLinha() - 1
 						//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO HORIZONTAL A ESQUERDA
-						|| posicao.getColuna() == antigaPosicao.getColuna() + 1 ) {
+						|| posicao.getLinha() == posicaoAtual.getLinha() + 1 ) {
 						//GARANTE QUE O CAVALO NÃO SE MOVA ALÉM DO PERMITIDO NO SENTIDO HORIZONTAL A DIREITA
 					restricoesCavalo[posicao.getLinha()][posicao.getColuna()] = cavalo;
-					tabuleiro.setMatrizPeca(restricoesCavalo);
-					antigaPosicao = posicao;
+					restricoesCavalo[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
+					Tabuleiro.setMatrizPeca(restricoesCavalo);
 					return true;
 				}
 			}

@@ -1,4 +1,7 @@
 package pecas;
+
+import Tabuleiro.Tabuleiro;
+
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
  * DATA : 15/11/2018
@@ -10,9 +13,24 @@ public class Rei extends Peca {
 	public boolean mover(Posicao posicao) {
 		Peca restricoesRei[][] = new Peca[8][8];
 		Rei rei = new Rei();
-		restricoesRei = tabuleiro.getMatrizPeca();
-		// antigaPosicao = (POSICA INICIAL DO REI)
+		restricoesRei = Tabuleiro.getMatrizPeca();
 
+		Posicao posicaoAtual = new Posicao();
+		for (int linha = 0; linha < restricoesRei.length; linha++) {
+			for (int coluna = 0; coluna < restricoesRei.length; coluna++) {
+				if (restricoesRei[linha][coluna] instanceof Rei) {
+					if (posicao.getColuna() == coluna + 1
+						||posicao.getColuna() == coluna - 1
+						|| posicao.getLinha() == linha + 1
+						|| posicao.getLinha() == linha - 1) {
+						posicaoAtual.setLinha(linha);
+						posicaoAtual.setColuna(coluna);	
+					}
+				}
+			}
+		}
+		
+		
 		if (restricoesRei[posicao.getLinha()][posicao.getColuna()] instanceof Peca) {
 			if (rei.isCorPreta() != restricoesRei[posicao.getLinha()][posicao.getColuna()].isCorPreta()) {
 				// SE HOUVER UMA PECA DE COR DIFERENTE DO REI O CODIGO CONTINUA A EXECUCAO
@@ -24,30 +42,30 @@ public class Rei extends Peca {
 			}
 		}
 
-		if ((posicao.getLinha() == antigaPosicao.getLinha() + 1 || posicao.getLinha() == antigaPosicao.getLinha() - 1)
-				&& (posicao.getColuna() == antigaPosicao.getColuna() + 1
-						|| posicao.getColuna() == antigaPosicao.getColuna() - 1)) {
+		if ((posicao.getLinha() == posicaoAtual.getLinha() + 1 || posicao.getLinha() == posicaoAtual.getLinha() - 1)
+				&& (posicao.getColuna() == posicaoAtual.getColuna() + 1
+						|| posicao.getColuna() == posicaoAtual.getColuna() - 1)) {
 			restricoesRei[posicao.getLinha()][posicao.getColuna()] = rei;
-			tabuleiro.setMatrizPeca(restricoesRei);
-			antigaPosicao = posicao;
+			restricoesRei[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
+			Tabuleiro.setMatrizPeca(restricoesRei);
 			return true;
 			// MOVIMENTA REI NAS DIAGONAIS PRINCIPAL E SECUNDARIA
 		}
 
-		if (antigaPosicao.getLinha() == posicao.getLinha() && (posicao.getColuna() == antigaPosicao.getColuna() + 1
-				|| posicao.getColuna() == antigaPosicao.getColuna() - 1)) {
+		if (posicaoAtual.getLinha() == posicao.getLinha() && (posicao.getColuna() == posicaoAtual.getColuna() + 1
+				|| posicao.getColuna() == posicaoAtual.getColuna() - 1)) {
 			restricoesRei[posicao.getLinha()][posicao.getColuna()] = rei;
-			tabuleiro.setMatrizPeca(restricoesRei);
-			antigaPosicao = posicao;
+			restricoesRei[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
+			Tabuleiro.setMatrizPeca(restricoesRei);
 			return true;
 			// MOVIMENTA REI NA HORIZONTAL
 		}
 
-		if (antigaPosicao.getColuna() == posicao.getColuna() && (posicao.getLinha() == antigaPosicao.getLinha() + 1
-				|| posicao.getLinha() == antigaPosicao.getLinha() - 1)) {
+		if (posicaoAtual.getColuna() == posicao.getColuna() && (posicao.getLinha() == posicaoAtual.getLinha() + 1
+				|| posicao.getLinha() == posicaoAtual.getLinha() - 1)) {
 			restricoesRei[posicao.getLinha()][posicao.getColuna()] = rei;
-			tabuleiro.setMatrizPeca(restricoesRei);
-			antigaPosicao = posicao;
+			restricoesRei[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
+			Tabuleiro.setMatrizPeca(restricoesRei);
 			return true;
 			// MOVIMENTA REI NA VERTICAL
 		}
