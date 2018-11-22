@@ -4,7 +4,7 @@ import Tabuleiro.Tabuleiro;
 
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
- * DATA : 21/11/2018
+ * DATA : 15/11/2018
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
  * */
 public class Cavalo extends Peca {

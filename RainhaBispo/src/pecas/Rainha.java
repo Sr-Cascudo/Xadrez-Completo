@@ -8,6 +8,7 @@ import Tabuleiro.Tabuleiro;
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
  * */
 public class Rainha extends Peca {
+	
 	@Override
 	public boolean mover(Posicao posicao) {
 		Peca restricoesRainha[][] = new Peca[8][8];

@@ -8,7 +8,6 @@ import pecas.Peca;
 import pecas.Posicao;
 
 public class Tabuleiro {
-	
 	private static Peca matrizPeca[][] = new Peca[8][8];
 	
 	public static Peca getPosicao(Posicao posicao) {

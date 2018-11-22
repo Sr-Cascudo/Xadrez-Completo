@@ -1,6 +1,5 @@
 package pecas;
 
-
 import Tabuleiro.Tabuleiro;
 
 /**
