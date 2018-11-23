@@ -1,5 +1,5 @@
 package pecas;
-import tabuleiro.Tabuleiro;
+import Tabuleiro.Tabuleiro;
 
 public abstract class Peca {
 

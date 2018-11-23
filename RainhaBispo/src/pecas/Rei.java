@@ -1,10 +1,10 @@
 package pecas;
 
-import tabuleiro.Tabuleiro;
+import Tabuleiro.Tabuleiro;
 
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
- * DATA : 15/11/2018
+ * DATA : 23/11/2018
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
  * */
 public class Rei extends Peca {
@@ -15,7 +15,7 @@ public class Rei extends Peca {
 		Rei rei = new Rei();
 		restricoesRei = Tabuleiro.getMatrizPeca();
 
-		Posicao posicaoAtual = new Posicao();
+		Posicao posicaoAtual = new Posicao(0,0);
 		for (int linha = 0; linha < restricoesRei.length; linha++) {
 			for (int coluna = 0; coluna < restricoesRei.length; coluna++) {
 				if (restricoesRei[linha][coluna] instanceof Rei) {
@@ -25,8 +25,15 @@ public class Rei extends Peca {
 						|| posicao.getLinha() == linha - 1) {
 						posicaoAtual.setLinha(linha);
 						posicaoAtual.setColuna(coluna);	
+						
+						//ENCERRA O LOOP QUANDO ACHA POSICAO INICIAL
+						linha = 8;
+						coluna = 8;
 					}
 				}
+			}
+			if(linha == 7){
+				return false;
 			}
 		}
 		

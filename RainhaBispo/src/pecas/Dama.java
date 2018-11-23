@@ -1,21 +1,20 @@
 package pecas;
 
-import tabuleiro.Tabuleiro;
+import Tabuleiro.Tabuleiro;
 
 /**
  * AUTOR : JOHN HELDER CARDOSO ALVES
- * DATA : 21/11/2018
+ * DATA : 23/11/2018
  * INSTITUICAO : UNIVERSIDADE ESTADUAL DO TOCANTINS
  * */
-public class Rainha extends Peca {
+public class Dama extends Peca {
 	
 	@Override
 	public boolean mover(Posicao posicao) {
 		Peca restricoesRainha[][] = new Peca[8][8];
-		Rainha rainha = new Rainha();
+		Dama rainha = new Dama();
 		restricoesRainha = Tabuleiro.getMatrizPeca();
-		restricoesRainha[0][3] = rainha;
-		Posicao posicaoAtual = new Posicao();
+		Posicao posicaoAtual = new Posicao(0,0);
 		
 		//OS BLOCOS "FOR" A SEGUIR SAO RESPONSAVEIS POR DETERMINAR A POSICAO ATUAL
 		//DA RAINHA COM BASE PARA ONDE ELA DESEJA SE MOVER.
@@ -31,11 +30,18 @@ public class Rainha extends Peca {
 						|| posicao.getColuna() - posicao.getLinha() == coluna - linha
 						|| posicao.getColuna() == coluna
 						|| posicao.getLinha() == linha) {
-					if (restricoesRainha[linha][coluna] instanceof Rainha) {
+					if (restricoesRainha[linha][coluna] instanceof Dama) {				
 						posicaoAtual.setLinha(linha);
 						posicaoAtual.setColuna(coluna);
+						
+						//ENCERRA O LOOP QUANDO ACHA POSICAO INICIAL
+						linha = 8;
+						coluna = 8;
 					}
 				}
+			}
+			if(linha == 7){
+				return false;
 			}
 		}
 //==============================================================================================		
