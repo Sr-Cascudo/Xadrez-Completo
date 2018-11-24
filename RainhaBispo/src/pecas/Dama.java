@@ -157,7 +157,7 @@ public class Dama extends Peca {
 		}
 
 		if (posicaoAtual.getColuna() == posicao.getColuna()) {
-			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
+			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = restricoesRainha[posicaoAtual.getLinha()][posicaoAtual.getColuna()];
 			restricoesRainha[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
 			Tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
 			return true;
@@ -165,7 +165,7 @@ public class Dama extends Peca {
 		}
 
 		if (posicaoAtual.getLinha() == posicao.getLinha()) {
-			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = rainha;
+			restricoesRainha[posicao.getLinha()][posicao.getColuna()] = restricoesRainha[posicaoAtual.getLinha()][posicaoAtual.getColuna()];
 			restricoesRainha[posicaoAtual.getLinha()][posicaoAtual.getColuna()] = null;
 			Tabuleiro.setMatrizPeca(restricoesRainha);// ATUALIZA A POSICAO DA RAINHA NO TABULEIRO
 			return true;
